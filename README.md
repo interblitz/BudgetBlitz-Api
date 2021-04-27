@@ -12,7 +12,7 @@ Budget Blitz 8.3.4b1 app on Android phone
 - Run samples from the samples dir
 - Put server address before retrieving data.
 
-Server address is http://[server]:[port]]. Server and port will be available after PC connection enabled.
+Server address is http://[server]:[port]. Server and port will be available after PC connection enabled.
 
 ## Api Documentation
 
@@ -20,4 +20,4 @@ Server address is http://[server]:[port]]. Server and port will be available aft
 - Run swagger/index.html
 - Put api specification path and press Explore.
 
-Api specification path is http://[server]:[port]]/api/v1/docs.json. Server and port will be available after PC connection enabled.
+Api specification path is http://[server]:[port]/api/v1/docs.json. Server and port will be available after PC connection enabled.
