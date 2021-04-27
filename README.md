@@ -12,7 +12,7 @@ Budget Blitz 8.3.4b1 app on Android phone
 - Run samples from the samples dir
 - Put server address before retrieving data
 
-Server address is http://[server]:[port]. Server and port will be available after PC connection enabled.
+Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. JavaScript library for building mobile and desktop web apps Webix (https://github.com/webix-hub) is used in samples.
 
 ## Api Documentation
 
