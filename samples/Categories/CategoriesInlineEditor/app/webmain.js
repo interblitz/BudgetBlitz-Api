@@ -56,9 +56,15 @@ var viewTable = {
         {view: "text",   label: "Server address",  id: "serverAddress",  value: serverUrl,
   				  on:{
   						onChange: function(newValue, oldValue, config){
+                serverUrl     = newValue;
                 collectionUrl = serverUrl + baseUrl + collection + treeOptions;
 
-  						  refresh();
+                webix.ajax(collectionUrl + columnsPath,).then(function(data){
+                    var columnsConfig = data.json();
+                    $$("treetable").refreshColumns(columnsConfig);
+
+                    refresh();
+                });
   						}
   					  }
   			},

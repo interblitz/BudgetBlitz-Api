@@ -44,6 +44,8 @@ webix.ajax(collectionUrl + columnsPath,).then(function(data){
     var columnsConfig = data.json();
 
     setupUI(columnsConfig);
+}, function(err){
+    setupUI([]);
 });
 
 function setupUI(columnsConfig) {
@@ -93,10 +95,16 @@ function setupUI(columnsConfig) {
           {view: "text",   label: "Server address",  id: "serverAddress",  value: serverUrl,
     				  on:{
     						onChange: function(newValue, oldValue, config){
-                  collectionUrl         = serverUrl + baseUrl + collection + treeOptions;
+                  serverUrl             = newValue;
+                  collectionUrl         = serverUrl + baseUrl + collection;
                   detailsCollectionUrl  = serverUrl + baseUrl + detailsCollection;
 
-    						  refresh();
+                  webix.ajax(collectionUrl + columnsPath,).then(function(data){
+                      var columnsConfig = data.json();
+                      $$("treetable").refreshColumns(columnsConfig);
+
+                      refresh();
+                  });
     						}
     					  }
     			},
@@ -300,18 +308,30 @@ function refresh(){
 
 function getRangeParams(startDate, endDate){
 
-  endDate.setHours(23);
-  endDate.setMinutes(59);
-  endDate.setSeconds(59);
-
   var dateformat = webix.Date.dateToStr("%Y%m%d%H%i%s");
-  var strStartDate = dateformat(startDate);
-  var strEndDate   = dateformat(endDate);
+
+  var strStartDate;
+  if(!!startDate){
+    strStartDate = "&mDateTime=" + dateformat(startDate);
+  } else {
+    strStartDate = "";
+  }
+
+  var strEndDate;
+  if(!!endDate){
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+
+    strEndDate = "&mDateTime_01=" + dateformat(endDate);
+  } else {
+    strEndDate = "";
+  }
 
   console.debug(strStartDate);
   console.debug(strEndDate);
 
-  return "&mDateTime=" + strStartDate + "&mDateTime_01=" + strEndDate;
+  return strStartDate + strEndDate;
 }
 
 function attachEditEvents(){
