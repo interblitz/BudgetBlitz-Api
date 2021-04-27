@@ -6,7 +6,7 @@ Api and samples are in beta stage. Make backup before use POST and DELETE querie
 
 ## Requirements
 
-Budget Blitz 8.3.4b1 app on Android phone
+Budget Blitz 8.4.1b1 app on Android phone
 
 ## Getting Started
 
