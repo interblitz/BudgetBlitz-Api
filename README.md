@@ -2,6 +2,8 @@
 
 http://bbmoney.biz
 
+Api and samples are in beta stage. Make backup before use POST and DELETE queries with working database.
+
 ## Requirements
 
 Budget Blitz 8.3.4b1 app on Android phone
