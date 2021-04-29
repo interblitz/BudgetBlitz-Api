@@ -26,4 +26,4 @@ Api specification path is http://[server]:[port]/api/v1/docs.json. Server and po
 
 ## Api Samples
 
-- Categories inline editor [source](Categories/CategoriesInlineEditor), [live demo] (https://interblitz.github.io/Categories/CategoriesInlineEditor)
+- Categories inline editor [source](BudgetBlitz-Api/tree/master/samples/Categories/CategoriesInlineEditor), [live demo] (https://interblitz.github.io/BudgetBlitz-Api/samples/Categories/CategoriesInlineEditor)
