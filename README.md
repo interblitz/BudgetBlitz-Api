@@ -19,7 +19,11 @@ Server address is http://[server]:[port]. Server and port will be available afte
 ## Api Documentation
 
 - Enable PC connection from the app (http://bbmoney.biz/en/manual/remote-access.html)
-- Run swagger/index.html from local PC or [repository](https://interblitz.github.io/BudgetBlitz-Api/swagger/)
+- Run swagger/index.html from local PC or [online repository](https://interblitz.github.io/BudgetBlitz-Api/swagger/)
 - Put api specification path and press Explore
 
 Api specification path is http://[server]:[port]/api/v1/docs.json. Server and port will be available after PC connection enabled.
+
+## Api Samples
+
+- Categories inline editor [source](Categories/CategoriesInlineEditor), [live demo] (https://interblitz.github.io/Categories/CategoriesInlineEditor)
