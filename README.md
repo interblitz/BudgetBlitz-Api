@@ -26,10 +26,10 @@ Api specification path is http://[server]:[port]/api/v1/docs.json. Server and po
 
 ## Api Samples
 
-- Categories inline editor [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Categories/CategoriesInlineEditor) [Source](/samples/Categories/CategoriesInlineEditor)
-- Categories popup editor  [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Categories/CategoriesPopupEditor) [Source](/samples/Categories/CategoriesPopupEditor)
-- Transactions popup editor [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditor) [Source](/samples/Transactions/TransactionsPopupEditor)
-- Transactions popup editor, custom form [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorCustomForm) [Source](/samples/Transactions/TransactionsPopupEditorCustomForm)
-- Transactions popup editor, icons support [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorIcons) [Source](/samples/Transactions/TransactionsPopupEditorIcons)
-- Transactions, delete example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsDelete) [Source](/samples/Transactions/TransactionsDelete)
-- Transactions, localizing example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorLocale) [Source](/samples/Transactions/TransactionsPopupEditorLocale)
+- Categories inline editor [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Categories/CategoriesInlineEditor), [Source](/samples/Categories/CategoriesInlineEditor)
+- Categories popup editor  [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Categories/CategoriesPopupEditor), [Source](/samples/Categories/CategoriesPopupEditor)
+- Transactions popup editor [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditor), [Source](/samples/Transactions/TransactionsPopupEditor)
+- Transactions popup editor, custom form [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorCustomForm), [Source](/samples/Transactions/TransactionsPopupEditorCustomForm)
+- Transactions popup editor, icons support [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorIcons), [Source](/samples/Transactions/TransactionsPopupEditorIcons)
+- Transactions, delete example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsDelete), [Source](/samples/Transactions/TransactionsDelete)
+- Transactions, localizing example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorLocale), [Source](/samples/Transactions/TransactionsPopupEditorLocale)
