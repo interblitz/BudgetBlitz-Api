@@ -122,11 +122,12 @@ function setupUI(columnsConfig) {
     						}
     					  }
     			},
-					{ view: "toolbar",
+          { view: "toolbar",
             elements: [
-              {view: "button", label: webix.i18n.appStrings.new,      id: "newElement",  width: 150, click: "newElement"},
-              {view: "button", label: webix.i18n.appStrings.edit,     id: "editElement",  width: 150, click: "editElement"},
-              {view: "button", label: "Refresh",  id: "refresh",     width: 150, click: "refresh"},
+              {view: "button", label: webix.i18n.appStrings.action_new,      id: "newElement",  width: 150, click: "newElement"},
+              {view: "button", label: webix.i18n.appStrings.action_edit,     id: "editElement",  width: 150, click: "editElement"},
+              {view: "button", label: webix.i18n.appStrings.action_copy,     id: "copyElement",  width: 150, click: "copyElement"},
+              {view: "button", label: webix.i18n.appStrings.action_delete,   id: "deleteElement",  width: 150, click: "deleteElement"},
               {view:"daterangepicker", label:"Range", id:"Range",  width:500,
                      value:{start:  startDate,
                             end:    endDate
@@ -136,9 +137,10 @@ function setupUI(columnsConfig) {
                           refresh();
                       }
                     }
-              }
+              },
+              {view:"icon", icon:"wxi-sync",  id: "refresh",  click: "refresh"}
             ]
-					},
+          },
           {cols:
               [
               viewTable,
@@ -149,7 +151,7 @@ function setupUI(columnsConfig) {
 
 }
 
-function showEditor(id){
+function showEditor(id, copy){
 
   webix.ajax(collectionUrl + formPath,).then(function(data){
 
@@ -198,7 +200,7 @@ function showEditor(id){
 	  {
 		"id": "mPlanned"
 	  },
-      { view:"button", type:"form", value:webix.i18n.appStrings.new, width: 150, click:function(){
+      { view:"button", type:"form", value:webix.i18n.appStrings.action_new, width: 150, click:function(){
 
           webix.ajax(detailsCollectionUrl + "/-1",).then(function(data){
             $$("mTransactionDetails").add(data.json());
@@ -259,13 +261,22 @@ function showEditor(id){
         webix.ui(customFormElementsConfig, editForm);
 
         editForm.addView(
-            { view:"button", type:"form", value:webix.i18n.appStrings.ok, click:function(){
+            { view:"button", type:"form", value:webix.i18n.appStrings.action_ok, click:function(){
                     saveElement();
                 }
             }
           );
 
-          editForm.load(collectionUrl + "/" + id);
+          editForm.load(collectionUrl + "/" + id, function(){
+
+            if(copy){
+                //console.debug(editForm);
+                editForm.setValues({
+                       id: -1
+                    }, true);                
+            }
+              
+          });
 
           popupEditor.show();
 
@@ -277,13 +288,66 @@ function showEditor(id){
 }
 
 function newElement(){
-    showEditor(-1);
+    showEditor(-1, false);
 }
 
 function editElement(){
     var selectedItem = $$("treetable").getSelectedItem();
     
-    showEditor(selectedItem.id);
+    if (typeof selectedItem !== 'undefined'){
+        showEditor(selectedItem.id, false);
+    }
+}
+
+function copyElement(){
+
+    var selectedItem = $$("treetable").getSelectedItem();
+    
+    if (typeof selectedItem !== 'undefined'){
+        showEditor(selectedItem.id, true);
+    }
+    
+}
+
+function deleteElement(){
+
+  var selectedItem = $$("treetable").getSelectedItem();
+  console.debug(selectedItem);
+
+  if (typeof selectedItem !== 'undefined'){
+
+    if(selectedItem.id > 0){
+
+      webix.confirm({
+          title:webix.i18n.appStrings.dialog_confirm,
+          ok:webix.i18n.appStrings.action_ok, 
+          cancel:webix.i18n.appStrings.action_cancel, 
+          text:webix.i18n.appStrings.dialog_delete_item
+      }).then(function(result){
+
+          webix.ajax()
+            .headers({'Content-type': 'application/json;charset=UTF-8'})
+            .del(collectionUrl + "/" + selectedItem.id, function(data) {
+
+              response = JSON.parse(data);
+              console.debug(response);
+
+              if(response.status = "success"){
+                $$("treetable").remove(response.id)
+              } else {
+                refresh();
+              }
+
+            });
+
+      }).fail(function(){
+
+      });
+
+    }
+        
+  }
+
 }
 
 function saveElement(popupEditor){
