@@ -353,22 +353,21 @@ function saveElement(popupEditor){
     webix.ajax()
       .headers({'Content-type': 'application/json;charset=UTF-8'})
       .post(collectionUrl, JSON.stringify(values), function(data) {
-
-        response = JSON.parse(data);
-        //console.debug(response);
-        
-        newId = response.id;
-        webix.ajax(collectionUrl + "/" + newId,).then(function(data){
-            if(values.mConnectedAccount > 0){
-                refresh();
-            } else {
+          
+        if(values.mConnectedAccount > 0){
+            refresh();
+        } else {
+            response = JSON.parse(data);
+            
+            newId = response.id;
+            webix.ajax(collectionUrl + "/" + newId,).then(function(data){
                 if(values.id > 0){
                   $$("treetable").updateItem(values.id, data.json());
                 } else {
                   $$("treetable").add(data.json());
                 }
-            }
-        });
+            });
+        }
 
         popupEditor.close();
     });
