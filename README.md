@@ -33,3 +33,4 @@ Api specification path is http://[server]:[port]/api/v1/docs.json. Server and po
 - Transactions popup editor, icons support [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorIcons), [Source](/samples/Transactions/TransactionsPopupEditorIcons)
 - Transactions, delete example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsDelete), [Source](/samples/Transactions/TransactionsDelete)
 - Transactions, localizing example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorLocale), [Source](/samples/Transactions/TransactionsPopupEditorLocale)
+- Transactions, transfer example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/Transactions/TransactionsPopupEditorTransfer), [Source](/samples/Transactions/TransactionsPopupEditorTransfer)
