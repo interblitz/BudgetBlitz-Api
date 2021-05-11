@@ -2,19 +2,10 @@ var collection        = "/collections/transactions";
 var detailsCollection = "/collections/transactiondetails";
 var treeOptions       = "?data-format=tree&nested-format=ids";
 var columnsPath       = "/webix-columns?options=true";
-var formElementsPath  = "/webix-form-elements";
+var formPath          = "/webix-form";
 
 var collectionUrl        = serverUrl + baseUrl + collection;
 var detailsCollectionUrl = serverUrl + baseUrl + detailsCollection;
-
-webix.Date.startOnMonday = true
-webix.i18n.setLocale("ru-RU");
-
-var date = new Date();
-var startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-var endDate   = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-webix.DataDriver.json.parseDates = true;
 
 //Need for treating numbers as numbers not as strings
 webix.extend(webix.ui.text, {
@@ -40,13 +31,47 @@ webix.protoUI({
 }, webix.ui.datatable);
 //--//--
 
-webix.ajax(collectionUrl + columnsPath,).then(function(data){
-    var columnsConfig = data.json();
+var date = new Date();
+var startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+var endDate   = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+webix.DataDriver.json.parseDates = true;
+
+var requestLocale = webix.ajax(serverUrl + baseUrl + "/locale");
+var requestStrings = webix.ajax(serverUrl + baseUrl + "/strings");
+var requestColumns = webix.ajax(collectionUrl + columnsPath);
+ 
+webix.promise.all([requestLocale,requestStrings,requestColumns]).then(function(results){
+    var responseLocale  = results[0];
+    var responseStrings = results[1];
+    var responseColumns = results[2];
+    
+    ///////////////////////////////////
+    var locale = responseLocale.json();
+
+    webix.Date.startOnMonday = (locale.firstDayOfWeek == 2);
+    webix.i18n.setLocale(locale.locale);
+    ///////////////////////////////////
+    
+    ///////////////////////////////////
+    webix.i18n.appStrings = responseStrings.json();
+    ///////////////////////////////////
+    
+    var columnsConfig = responseColumns.json();
 
     setupUI(columnsConfig);
+    
 }, function(err){
     setupUI([]);
 });
+
+//webix.ajax(collectionUrl + columnsPath,).then(function(data){
+//    var columnsConfig = data.json();
+//
+//    setupUI(columnsConfig);
+//}, function(err){
+//    setupUI([]);
+//});
 
 function setupUI(columnsConfig) {
 
@@ -80,17 +105,6 @@ function setupUI(columnsConfig) {
    };
 
    webix.ui({
-     view:"window",
-     id:"popupEdit",
-     head:"Edit.. ",
-     position:"center",
-     fullscreen:true,
-     body:{
-     	view:"form", id:"editform", elements: [], scroll:true , autoheight:true
-     }
-   });
-
-   webix.ui({
         rows: [
           {view: "text",   label: "Server address",  id: "serverAddress",  value: serverUrl,
     				  on:{
@@ -110,7 +124,8 @@ function setupUI(columnsConfig) {
     			},
 					{ view: "toolbar",
             elements: [
-              {view: "button", label: "New",      id: "newElement",  width: 150, click: "newElement"},
+              {view: "button", label: webix.i18n.appStrings.new,      id: "newElement",  width: 150, click: "newElement"},
+              {view: "button", label: webix.i18n.appStrings.edit,     id: "editElement",  width: 150, click: "editElement"},
               {view: "button", label: "Refresh",  id: "refresh",     width: 150, click: "refresh"},
               {view:"daterangepicker", label:"Range", id:"Range",  width:500,
                      value:{start:  startDate,
@@ -136,9 +151,9 @@ function setupUI(columnsConfig) {
 
 function showEditor(id){
 
-  webix.ajax(collectionUrl + formElementsPath,).then(function(data){
+  webix.ajax(collectionUrl + formPath,).then(function(data){
 
-      var formElementsConfig = data.json();
+      var formConfig = data.json();
 
       var customFormTemplate = [
 	  {
@@ -183,7 +198,7 @@ function showEditor(id){
 	  {
 		"id": "mPlanned"
 	  },
-      { view:"button", type:"form", value:"New", width: 150, click:function(){
+      { view:"button", type:"form", value:webix.i18n.appStrings.new, width: 150, click:function(){
 
           webix.ajax(detailsCollectionUrl + "/-1",).then(function(data){
             $$("mTransactionDetails").add(data.json());
@@ -202,7 +217,7 @@ function showEditor(id){
 		nested.cols = item.cols.map(templateReplacer);
 		return nested;
 	  } else {
-		const foundElement = formElementsConfig.find(element => element.id === item.id);
+		const foundElement = formConfig.formElements.find(element => element.id === item.id);
 		if(foundElement ){
 			return foundElement;
 		} else {
@@ -212,65 +227,103 @@ function showEditor(id){
 	};
 
 	var customFormElementsConfig = customFormTemplate.map(templateReplacer);
+        
+        var popupEditor = webix.ui({
+            view:"window",
+            id:"popupEdit",
 
-    webix.ui(customFormElementsConfig, $$('editform'));
+            //head:"Edit.. ",
+            head:{
+              cols:[
+                  {template: formConfig.caption, type:"header", borderless:true},
+                  {view:"icon", icon:"wxi-check", id:"apply", click: function(){
+                          saveElement(popupEditor);
+                    }
+                  },
+                  {view:"icon", icon:"wxi-close", id:"close", click: function(){
+                          popupEditor.close();
+                    }
+                  }
+              ]
+            },
 
-    $$('editform').addView(
-        { view:"button", type:"form", value:"Save", click:function(){
+             position:"center",
+             close:true,
+             fullscreen:true,
+             body:{
+                view:"form", id:"editform", elements: [], scroll:true , autoheight:true
+             }
+        });
+        
+        var editForm = popupEditor.getBody();//$$('editform');
+        webix.ui(customFormElementsConfig, editForm);
 
-                var values;
+        editForm.addView(
+            { view:"button", type:"form", value:webix.i18n.appStrings.ok, click:function(){
+                    saveElement();
+                }
+            }
+          );
 
-                //getDirtyValues (only modified values) not working for nested datatables
-                // if(id > 0){
-                //   values = $$("editform").getDirtyValues();
-                //   values["id"] = id;
-                // } else {
-                //   values = $$("editform").getValues();
-                // }
-                // console.debug($$("editform").getValues());
-                // console.debug($$("editform").getDirtyValues());
-                values = $$("editform").getValues();
+          editForm.load(collectionUrl + "/" + id);
 
-                console.debug(values);
-                console.debug(JSON.stringify(values));
+          popupEditor.show();
 
-                webix.ajax()
-                  .headers({'Content-type': 'application/json;charset=UTF-8'})
-                  .post(collectionUrl, JSON.stringify(values), function(data) {
+          attachEditEvents();
 
-                    response = JSON.parse(data);
-                    //console.debug(response);
-
-                    newId = response.id;
-                    webix.ajax(collectionUrl + "/" + newId,).then(function(data){
-                      if(id > 0){
-                        $$("treetable").updateItem(newId, data.json());
-                      } else {
-                        $$("treetable").add(data.json());
-                      }
-                    });
-
-                });
-
-                //this.getFormView().save();
-                this.getTopParentView().hide();
-              }
         }
       );
-
-      $$('editform').load(collectionUrl + "/" + id);
-
-      $$("popupEdit").show();
-
-      attachEditEvents();
-
-    }
-  );
 
 }
 
 function newElement(){
     showEditor(-1);
+}
+
+function editElement(){
+    var selectedItem = $$("treetable").getSelectedItem();
+    
+    showEditor(selectedItem.id);
+}
+
+function saveElement(popupEditor){
+
+    var values;
+    var editForm = popupEditor.getBody();//$$("editform")
+
+    //getDirtyValues (only modified values) not working for nested datatables
+    // if(id > 0){
+    //   values = $$("editform").getDirtyValues();
+    //   values["id"] = id;
+    // } else {
+    //   values = $$("editform").getValues();
+    // }
+    // console.debug($$("editform").getValues());
+    // console.debug($$("editform").getDirtyValues());
+    values = editForm.getValues();
+
+    console.debug(values);
+    console.debug(JSON.stringify(values));
+
+    webix.ajax()
+      .headers({'Content-type': 'application/json;charset=UTF-8'})
+      .post(collectionUrl, JSON.stringify(values), function(data) {
+
+        response = JSON.parse(data);
+        //console.debug(response);
+        
+        newId = response.id;
+        webix.ajax(collectionUrl + "/" + newId,).then(function(data){
+          if(values.id > 0){
+            $$("treetable").updateItem(values.id, data.json());
+          } else {
+            $$("treetable").add(data.json());
+          }
+        });
+
+        popupEditor.close();
+    });
+    
 }
 
 function refresh(){
