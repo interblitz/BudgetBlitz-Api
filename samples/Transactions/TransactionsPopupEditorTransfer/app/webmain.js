@@ -309,10 +309,14 @@ function deleteElement(){
               response = JSON.parse(data);
               console.debug(response);
 
-              if(response.status = "success"){
-                $$("treetable").remove(response.id)
+              if(selectedItem.mConnectedAccount > 0){
+                  refresh();
               } else {
-                refresh();
+                if(response.status = "success"){
+                  $$("treetable").remove(response.id)
+                } else {
+                  refresh();
+                }
               }
 
             });
@@ -355,11 +359,15 @@ function saveElement(popupEditor){
         
         newId = response.id;
         webix.ajax(collectionUrl + "/" + newId,).then(function(data){
-          if(values.id > 0){
-            $$("treetable").updateItem(values.id, data.json());
-          } else {
-            $$("treetable").add(data.json());
-          }
+            if(values.mConnectedAccount > 0){
+                refresh();
+            } else {
+                if(values.id > 0){
+                  $$("treetable").updateItem(values.id, data.json());
+                } else {
+                  $$("treetable").add(data.json());
+                }
+            }
         });
 
         popupEditor.close();
