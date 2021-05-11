@@ -158,59 +158,36 @@ function showEditor(id, copy){
       var formConfig = data.json();
 
       var customFormTemplate = [
-	  {
-		"id": "mDateTime"
-	  },
+	  {"id": "mDateTime"},
 	  {  cols:[
-		  {
-			"id": "mCurrencyValue"
-		  },
-		  {
-			"id": "mCurrency"
-		  },
-		  {
-			"id": "mCurrencyRate"
-		  },
-		  {
-			"id": "mValue"
-		  }
+		  {"id": "mCurrencyValue"},
+		  {"id": "mCurrency"},
+		  {"id": "mCurrencyRate"},
+		  {"id": "mValue"}
 		]
 	  },
-	  {
-		"id": "mNote"
-	  },
-	  {
-		"id": "mAccount"
-	  },
-	  {
-		"id": "mBudgetItem"
-	  },
-	  {
-		"id": "mContractor"
-	  },
-	  {
-		"id": "mProject"
-	  },
-	  {
-		"id": "mUnit"
-	  },
-	  {
-		"id": "mLocation"
-	  },
-	  {
-		"id": "mPlanned"
-	  },
-      { view:"button", type:"form", value:webix.i18n.appStrings.action_new, width: 150, click:function(){
+	  {"id": "mNote"},
+          {  cols:[
+                  {"id": "mAccount"},
+                  {"id": "mConnectedAccount"}
+              ]
+          },
+	  {"id": "mBudgetItem"},
+	  {"id": "mContractor"},
+	  {"id": "mProject"},
+	  {"id": "mUnit"},
+	  {"id": "mLocation"},
+	  {"id": "mPlanned"},
+          
+          { view:"button", type:"form", value:webix.i18n.appStrings.action_new, width: 150, click:function(){
 
-          webix.ajax(detailsCollectionUrl + "/-1",).then(function(data){
-            $$("mTransactionDetails").add(data.json());
-          });
+                webix.ajax(detailsCollectionUrl + "/-1",).then(function(data){
+                  $$("mTransactionDetails").add(data.json());
+                });
 
-		}
+            }
 	  },
-	  {
-		"id": "mTransactionDetails"
-	  }
+	  {"id": "mTransactionDetails"}
 	  ];
 
 	const templateReplacer = function(item){
