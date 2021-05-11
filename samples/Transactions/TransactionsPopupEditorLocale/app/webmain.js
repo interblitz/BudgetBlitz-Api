@@ -128,7 +128,7 @@ function setupUI(columnsConfig) {
               {view: "button", label: webix.i18n.appStrings.action_edit,     id: "editElement",  width: 150, click: "editElement"},
               {view: "button", label: webix.i18n.appStrings.action_copy,     id: "copyElement",  width: 150, click: "copyElement"},
               {view: "button", label: webix.i18n.appStrings.action_delete,   id: "deleteElement",  width: 150, click: "deleteElement"},
-              {view:"daterangepicker", label:"Range", id:"Range",  width:500,
+              {view:"daterangepicker", label:webix.i18n.appStrings.action_range, id:"Range",  width:500,
                      value:{start:  startDate,
                             end:    endDate
                           },
@@ -262,7 +262,7 @@ function showEditor(id, copy){
 
         editForm.addView(
             { view:"button", type:"form", value:webix.i18n.appStrings.action_ok, click:function(){
-                    saveElement();
+                    saveElement(popupEditor);
                 }
             }
           );
