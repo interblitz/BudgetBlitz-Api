@@ -37,8 +37,8 @@ var endDate   = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
 webix.DataDriver.json.parseDates = true;
 
-var requestLocale = webix.ajax(serverUrl + baseUrl + "/locale");
-var requestStrings = webix.ajax(serverUrl + baseUrl + "/strings");
+var requestLocale   = webix.ajax(serverUrl + baseUrl + "/resources/strings/locale");
+var requestStrings  = webix.ajax(serverUrl + baseUrl + "/resources/strings");
 var requestColumns = webix.ajax(collectionUrl + columnsPath);
  
 webix.promise.all([requestLocale,requestStrings,requestColumns]).then(function(results){
