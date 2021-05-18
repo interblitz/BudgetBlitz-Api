@@ -16,6 +16,8 @@ Budget Blitz 8.4.1b3 app installed on Android device
 
 Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. JavaScript library for building mobile and desktop web apps Webix (https://github.com/webix-hub) is used in samples.
 
+Allow [mixed content](https://stackoverflow.com/questions/18321032/how-to-get-chrome-to-allow-mixed-content) if "No connection" error occures for correct address.
+
 ## Api Documentation
 
 - Enable PC connection from the app (http://bbmoney.biz/en/manual/remote-access.html)
