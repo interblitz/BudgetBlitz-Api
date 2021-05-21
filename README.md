@@ -16,13 +16,13 @@ Budget Blitz 8.4.1b3 app installed on Android device
 
 Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. 
 
-Since Budget Blitz 8.4.1b4 secure (https)[https://en.wikipedia.org/wiki/HTTPS] protocol supported with dynamic generated (Self-signed certificate)[https://en.wikipedia.org/wiki/Self-signed_certificate].
+Since Budget Blitz 8.4.1b4 secure [https](https://en.wikipedia.org/wiki/HTTPS) protocol supported with [Self-signed certificate](https://en.wikipedia.org/wiki/Self-signed_certificate). New Self-signed certificate generates each time PC connection enabled. 
 For secure connection use server address with port prefix "1"
 https://[server]:1[port]
 
 ### Troubleshooting
 
-- "No connection" error occures for correct address.
+- "No connection" error occures for correct address
 
 Allow [mixed content](https://stackoverflow.com/questions/18321032/how-to-get-chrome-to-allow-mixed-content).
 
