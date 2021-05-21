@@ -14,9 +14,17 @@ Budget Blitz 8.4.1b3 app installed on Android device
 - Run samples from the samples dir
 - Put server address before retrieving data
 
-Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. JavaScript library for building mobile and desktop web apps Webix (https://github.com/webix-hub) is used in samples.
+Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. 
 
-Allow [mixed content](https://stackoverflow.com/questions/18321032/how-to-get-chrome-to-allow-mixed-content) if "No connection" error occures for correct address.
+Since Budget Blitz 8.4.1b4 secure (https)[https://en.wikipedia.org/wiki/HTTPS] protocol supported with dynamic generated (Self-signed certificate)[https://en.wikipedia.org/wiki/Self-signed_certificate].
+For secure connection use server address with port prefix "1"
+https://[server]:1[port]
+
+### Troubleshooting
+
+- "No connection" error occures for correct address.
+
+Allow [mixed content](https://stackoverflow.com/questions/18321032/how-to-get-chrome-to-allow-mixed-content).
 
 ## Api Documentation
 
@@ -41,3 +49,5 @@ Api specification path is http://[server]:[port]/api/v1/docs.json. Server and po
 - Sidebar, simple example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/03-Sidebar/01-Simple), [Source](/samples/03-Sidebar/01-Simple)
 - Sidebar, actions example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/03-Sidebar/02-ActionsListener), [Source](/samples/03-Sidebar/02-ActionsListener)
 - Sidebar, app prototype example [Live Demo](https://interblitz.github.io/BudgetBlitz-Api/samples/03-Sidebar/03-ButtonsListener), [Source](/samples/03-Sidebar/03-ButtonsListener)
+
+JavaScript library for building mobile and desktop web apps Webix (https://github.com/webix-hub) is used in samples.
