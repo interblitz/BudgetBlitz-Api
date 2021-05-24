@@ -17,8 +17,10 @@ Budget Blitz 8.4.1b3 app installed on Android device
 Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. 
 
 Since Budget Blitz 8.4.1b4 secure [https](https://en.wikipedia.org/wiki/HTTPS) protocol supported with [Self-signed certificate](https://en.wikipedia.org/wiki/Self-signed_certificate). New Self-signed certificate generates each time PC connection enabled. **You have to tell your browser to trust connection**.
-For secure connection use server address with port prefix "1"
-https://[server]:1[port]
+For secure connection use server address with secure port 9080 (Pro version) or 9081 (Free version)
+https://[server]:[port]
+Or use secure shortcut (automatic redirect) on port 9070 (Pro version) or 9071 (Free version)
+[server]:[port]
 
 ### Troubleshooting
 
