@@ -14,15 +14,15 @@ Budget Blitz 8.4.1b3 app installed on Android device
 - Run samples from the samples dir
 - Put server address before retrieving data
 
-Server address is http://[server]:[port]. Server and port will be available after PC connection enabled. 
+Server address is http://server:port. Server and port will be available after PC connection enabled. 
 
 ###### Budget Blitz Pro
 
 Since 8.4.1b4 secure [https](https://en.wikipedia.org/wiki/HTTPS) protocol supported with [Self-signed certificate](https://en.wikipedia.org/wiki/Self-signed_certificate). New Self-signed certificate generates each time PC connection enabled. **You have to tell your browser to trust connection**.
 For secure connection use server full address with secure port 9080 or shortcut with redirect-port 9070
 
-1. https://[server]:[port]
-2. [server]:[redirect-port]
+1. https://server:port
+2. server:redirect-port
 
 
 ### Troubleshooting
@@ -33,7 +33,7 @@ Allow [mixed content](https://stackoverflow.com/questions/18321032/how-to-get-ch
 
 - "No connection" error occures for correct https address
 
-Go direct to https://[server]:1[port] and add exception for this address in your browser. It is really safe.
+Go direct to https://server:port and add exception for this address in your browser. It is really safe.
 
 ## Api Documentation
 
